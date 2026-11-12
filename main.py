@@ -1,4 +1,6 @@
 import csv
+import matplotlib.pyplot as plt
+import numpy as np
 # comma separated values
 
 with open("YA_Books.csv", mode = "r") as bookfile:
@@ -11,8 +13,11 @@ with open("YA_Books.csv", mode = "r") as bookfile:
     Max_rating = 0.0 # min rate
     page_count = 0 # min rate
     Max_rating2 = 0.0 # min rate
+    RateBarNames = []
+    RateBarNumbers = []
 
     for book in books:
+        # setup
         title = book[0]
         Author = book[1]
         year = int(book[2])
@@ -20,6 +25,10 @@ with open("YA_Books.csv", mode = "r") as bookfile:
         Genre = book[4]
         NumberOfPages = int(book[5])
         GoodreadsStarRating = float(book[6])
+
+        # bar chart addition
+        RateBarNames.append(title)
+        RateBarNumbers.append(GoodreadsStarRating)
 
         # question 1
         # what is the highest rating for any book in the dataset?
@@ -49,3 +58,7 @@ with open("YA_Books.csv", mode = "r") as bookfile:
     print(f"process: made sure books made after (or during) 2000 would get ignored and did the same thing as question 1\n")
     print(f"highest rating book with over 400 pages: {highest_Rated_Book}")
     print(f"process: copy/pasted question 1 and made sure books with under (or exactly) 400 pages would be ignored\n")
+    RateBarNames = np.array(RateBarNames)
+    RateBarNumbers = np.array(RateBarNumbers)
+    plt.barh(RateBarNames,RateBarNumbers, height = 1)
+    plt.show()
